@@ -6,647 +6,589 @@
 <title>Christian Mardini — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Bowlby+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ---------- THEME ---------- */
   :root{
-    --red:#ff2d2d;
-    --blue:#2b4cff;
-    --yellow:#ffd400;
-    --green:#1aae4a;
-    --black:#0a0a0a;
-    --cream:#f6f1e3;
-    --shadow: 8px 8px 0 var(--black);
-    --shadow-lg: 12px 12px 0 var(--black);
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --surface-alt: #f4f4f1;
+    --border: #e5e5e0;
+    --text: #1a1a1a;
+    --text-muted: #6b6b66;
+    --accent: #2563eb;
+    --accent-soft: #eff4ff;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+    --radius: 12px;
+  }
+  [data-theme="dark"]{
+    --bg: #0f0f10;
+    --surface: #18181a;
+    --surface-alt: #1f1f22;
+    --border: #2a2a2e;
+    --text: #f2f2f0;
+    --text-muted: #9a9a94;
+    --accent: #7aa2ff;
+    --accent-soft: #1a2238;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    font-family:'Space Mono', monospace;
-    background:var(--cream);
-    color:var(--black);
-    line-height:1.5;
-    overflow-x:hidden;
-    /* halftone dot pattern */
-    background-image: radial-gradient(var(--black) 1px, transparent 1px);
-    background-size: 22px 22px;
-    background-position: 0 0;
+    font-family:'Inter', system-ui, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition: background .25s ease, color .25s ease;
   }
 
   /* ---------- LAYOUT ---------- */
-  .wrap{max-width:1280px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
 
   /* ---------- NAV ---------- */
   nav{
     position:sticky; top:0; z-index:50;
-    background:var(--yellow);
-    border-bottom:4px solid var(--black);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom:1px solid var(--border);
   }
   .nav-inner{
     display:flex; justify-content:space-between; align-items:center;
-    padding:14px 24px; max-width:1280px; margin:0 auto;
+    padding:16px 28px; max-width:920px; margin:0 auto;
   }
   .logo{
-    font-family:'Archivo Black', sans-serif;
-    font-size:1.4rem;
-    background:var(--black); color:var(--yellow);
-    padding:8px 14px;
-    border:3px solid var(--black);
-    transform:rotate(-2deg);
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    letter-spacing:-.01em;
   }
-  .nav-links{display:flex; gap:8px; list-style:none; flex-wrap:wrap;}
+  .nav-right{display:flex; align-items:center; gap:24px;}
+  .nav-links{display:flex; gap:22px; list-style:none;}
   .nav-links a{
-    text-decoration:none; color:var(--black);
-    font-weight:700; font-size:.85rem;
-    padding:6px 12px;
-    border:3px solid var(--black);
-    background:var(--cream);
-    transition:transform .12s ease, box-shadow .12s ease;
+    text-decoration:none;
+    color:var(--text-muted);
+    font-size:.92rem;
+    font-weight:500;
+    transition: color .15s ease;
   }
-  .nav-links a:hover{
-    transform:translate(-2px,-2px);
-    box-shadow:4px 4px 0 var(--black);
-    background:var(--red); color:var(--cream);
+  .nav-links a:hover{color:var(--text);}
+
+  .theme-toggle{
+    background:none;
+    border:1px solid var(--border);
+    width:36px; height:36px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    color:var(--text);
+    transition: background .15s ease, border-color .15s ease;
   }
+  .theme-toggle:hover{background:var(--surface-alt);}
+  .theme-toggle svg{width:16px; height:16px;}
+  .theme-toggle .moon{display:block;}
+  .theme-toggle .sun{display:none;}
+  [data-theme="dark"] .theme-toggle .moon{display:none;}
+  [data-theme="dark"] .theme-toggle .sun{display:block;}
 
   /* ---------- HERO ---------- */
-  .hero{
-    padding:80px 0 60px;
-    position:relative;
-  }
-  .hero-grid{
-    display:grid;
-    grid-template-columns: 1.4fr .9fr;
-    gap:32px;
-    align-items:start;
-  }
-  .hero-title{
-    font-family:'Bowlby One', sans-serif;
-    font-size:clamp(2.8rem, 8vw, 6.5rem);
-    line-height:.9;
+  .hero{padding:88px 0 64px;}
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    line-height:1.1;
     letter-spacing:-.02em;
-    text-transform:uppercase;
+    margin-bottom:20px;
   }
-  .hero-title .word{
-    display:inline-block;
-    padding:4px 14px;
-    margin:6px 4px 6px 0;
-    border:5px solid var(--black);
-    background:var(--cream);
-    box-shadow:var(--shadow);
+  .hero h1 em{
+    font-style:italic;
+    color:var(--accent);
+    font-weight:500;
   }
-  .hero-title .w-red{ background:var(--red); color:var(--cream);}
-  .hero-title .w-blue{ background:var(--blue); color:var(--cream);}
-  .hero-title .w-yellow{ background:var(--yellow);}
-  .hero-title .w-green{ background:var(--green); color:var(--cream);}
-
   .hero-sub{
-    margin-top:24px;
-    background:var(--cream);
-    border:4px solid var(--black);
-    padding:18px 20px;
-    box-shadow:var(--shadow);
-    font-size:1rem;
-    max-width:560px;
+    font-size:1.1rem;
+    color:var(--text-muted);
+    max-width:600px;
+    margin-bottom:28px;
   }
-  .hero-meta{
-    margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;
+  .hero-meta{display:flex; gap:18px; flex-wrap:wrap; font-size:.92rem; color:var(--text-muted);}
+  .hero-meta span{display:flex; align-items:center; gap:6px;}
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 0 3px rgba(34,197,94,.18);
   }
-  .pill{
-    display:inline-block;
-    padding:8px 14px;
-    border:3px solid var(--black);
-    font-weight:700; font-size:.85rem;
-    background:var(--cream);
-    box-shadow:4px 4px 0 var(--black);
-  }
-  .pill.red{ background:var(--red); color:var(--cream);}
-  .pill.blue{ background:var(--blue); color:var(--cream);}
-  .pill.green{ background:var(--green); color:var(--cream);}
 
-  /* Hero sticker card */
-  .sticker{
-    background:var(--red);
-    border:5px solid var(--black);
-    box-shadow:var(--shadow-lg);
-    padding:24px;
-    color:var(--cream);
-    transform:rotate(2deg);
-    position:relative;
-  }
-  .sticker h3{
-    font-family:'Archivo Black', sans-serif;
-    font-size:1.6rem;
-    text-transform:uppercase;
-    line-height:1;
-    margin-bottom:12px;
-  }
-  .sticker .big{
-    font-family:'Bowlby One', sans-serif;
-    font-size:3.2rem; line-height:1;
-    background:var(--yellow); color:var(--black);
-    border:4px solid var(--black);
-    padding:10px 14px;
-    display:inline-block;
-    transform:rotate(-3deg);
-    margin:8px 0;
-  }
-  .sticker ul{list-style:none; margin-top:10px;}
-  .sticker ul li{padding:4px 0; font-weight:700;}
-  .sticker ul li::before{content:"▸ "; color:var(--yellow);}
-
-  /* ---------- SECTION HEADER ---------- */
-  section{padding:60px 0; position:relative;}
+  /* ---------- SECTION ---------- */
+  section{padding:48px 0; border-top:1px solid var(--border);}
   .sec-title{
-    font-family:'Bowlby One', sans-serif;
-    font-size:clamp(2rem, 5vw, 3.6rem);
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:.85rem;
     text-transform:uppercase;
-    display:inline-block;
-    padding:8px 20px;
-    border:5px solid var(--black);
-    box-shadow:var(--shadow);
-    margin-bottom:36px;
+    letter-spacing:.12em;
+    color:var(--text-muted);
+    margin-bottom:28px;
   }
-  #about .sec-title{background:var(--blue); color:var(--cream);}
-  #projects .sec-title{background:var(--green); color:var(--cream);}
-  #skills .sec-title{background:var(--red); color:var(--cream);}
-  #contact .sec-title{background:var(--yellow);}
 
   /* ---------- ABOUT ---------- */
-  .about-grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:24px;
+  .about-text{
+    font-size:1.02rem;
+    margin-bottom:24px;
   }
-  .card{
-    background:var(--cream);
-    border:4px solid var(--black);
-    padding:22px;
-    box-shadow:var(--shadow);
-  }
-  .card h3{
-    font-family:'Archivo Black', sans-serif;
-    text-transform:uppercase;
-    font-size:1.2rem;
-    margin-bottom:10px;
-    display:inline-block;
-    padding:4px 10px;
-    background:var(--black); color:var(--yellow);
-  }
-  .card p{font-size:.95rem; margin-bottom:8px;}
-  .card .school{font-weight:700;}
-  .card .year{
-    display:inline-block;
-    font-family:'Archivo Black', sans-serif;
-    background:var(--yellow);
-    border:3px solid var(--black);
-    padding:2px 8px;
-    margin-top:6px;
-    font-size:.8rem;
-  }
+  .about-text + .about-text{margin-bottom:0;}
 
   /* ---------- PROJECTS ---------- */
-  .proj-grid{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap:28px;
-  }
+  .projects{display:flex; flex-direction:column; gap:14px;}
   .proj{
-    background:var(--cream);
-    border:5px solid var(--black);
-    box-shadow:var(--shadow-lg);
-    padding:0;
-    overflow:hidden;
-    transition: transform .15s ease, box-shadow .15s ease;
-    display:flex; flex-direction:column;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
   }
   .proj:hover{
-    transform: translate(-4px,-4px);
-    box-shadow: 16px 16px 0 var(--black);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
-  .proj-banner{
-    padding:18px 20px;
-    border-bottom:5px solid var(--black);
-    font-family:'Archivo Black', sans-serif;
-    font-size:.85rem;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    display:flex; justify-content:space-between; align-items:center;
+  .proj-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:16px; margin-bottom:8px; flex-wrap:wrap;
   }
-  .proj:nth-child(1) .proj-banner{ background:var(--red); color:var(--cream);}
-  .proj:nth-child(2) .proj-banner{ background:var(--blue); color:var(--cream);}
-  .proj:nth-child(3) .proj-banner{ background:var(--green); color:var(--cream);}
-  .proj:nth-child(4) .proj-banner{ background:var(--yellow);}
-
-  .proj-num{
-    background:var(--black); color:var(--cream);
-    padding:2px 8px; border:2px solid var(--black);
+  .proj-head h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.2rem;
+    letter-spacing:-.01em;
   }
-  .proj-body{ padding:22px; flex:1; display:flex; flex-direction:column;}
-  .proj-body h3{
-    font-family:'Bowlby One', sans-serif;
-    font-size:1.5rem;
-    line-height:1;
-    margin-bottom:12px;
-    text-transform:uppercase;
+  .proj-type{
+    font-size:.78rem;
+    color:var(--text-muted);
+    font-variant-numeric: tabular-nums;
   }
-  .proj-body p{font-size:.92rem; margin-bottom:14px; flex:1;}
+  .proj p{
+    color:var(--text-muted);
+    font-size:.95rem;
+    margin-bottom:14px;
+  }
   .tags{display:flex; flex-wrap:wrap; gap:6px;}
   .tag{
-    font-size:.72rem;
-    font-weight:700;
-    padding:4px 8px;
-    border:2px solid var(--black);
-    background:var(--cream);
+    font-size:.75rem;
+    font-weight:500;
+    padding:3px 10px;
+    border-radius:999px;
+    background:var(--surface-alt);
+    color:var(--text-muted);
+    border:1px solid var(--border);
+  }
+
+  /* ---------- EXPERIENCE / EDU ---------- */
+  .timeline{display:flex; flex-direction:column; gap:22px;}
+  .timeline-item{
+    display:grid;
+    grid-template-columns: 110px 1fr;
+    gap:24px;
+    align-items:baseline;
+  }
+  .timeline-year{
+    font-variant-numeric: tabular-nums;
+    color:var(--text-muted);
+    font-size:.88rem;
+    font-weight:500;
+  }
+  .timeline-content h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    margin-bottom:2px;
+  }
+  .timeline-content .org{
+    color:var(--text-muted);
+    font-size:.92rem;
   }
 
   /* ---------- SKILLS ---------- */
   .skill-grid{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:24px;
+    grid-template-columns: 130px 1fr;
+    gap:20px 28px;
   }
-  .skill-block{
-    border:5px solid var(--black);
-    box-shadow:var(--shadow);
-    padding:20px;
-  }
-  .skill-block:nth-child(1){background:var(--yellow);}
-  .skill-block:nth-child(2){background:var(--blue); color:var(--cream);}
-  .skill-block:nth-child(3){background:var(--green); color:var(--cream);}
-  .skill-block:nth-child(4){background:var(--red); color:var(--cream);}
-  .skill-block h3{
-    font-family:'Bowlby One', sans-serif;
-    text-transform:uppercase;
-    font-size:1.3rem;
-    margin-bottom:14px;
-    line-height:1;
-  }
-  .skill-list{display:flex; flex-wrap:wrap; gap:6px;}
-  .skill-list span{
-    background:var(--cream); color:var(--black);
-    border:3px solid var(--black);
-    padding:4px 10px;
-    font-size:.78rem;
-    font-weight:700;
+  .skill-cat{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:.95rem;
+    padding-top:4px;
   }
 
   /* ---------- CONTACT ---------- */
   .contact-card{
-    background:var(--black);
-    color:var(--cream);
-    border:5px solid var(--black);
-    padding:40px;
-    box-shadow:var(--shadow-lg);
-    text-align:center;
-    position:relative;
-  }
-  .contact-card::before{
-    content:"";
-    position:absolute;
-    top:-20px; left:-20px;
-    width:60px; height:60px;
-    background:var(--red);
-    border:5px solid var(--black);
-    z-index:-1;
-  }
-  .contact-card::after{
-    content:"";
-    position:absolute;
-    bottom:-20px; right:-20px;
-    width:60px; height:60px;
-    background:var(--green);
-    border:5px solid var(--black);
-    z-index:-1;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px;
   }
   .contact-card h3{
-    font-family:'Bowlby One', sans-serif;
-    font-size:clamp(1.6rem, 4vw, 2.6rem);
-    text-transform:uppercase;
-    margin-bottom:24px;
-    line-height:1;
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.6rem;
+    letter-spacing:-.01em;
+    margin-bottom:8px;
   }
-  .contact-links{
-    display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  .contact-card p{
+    color:var(--text-muted);
+    margin-bottom:20px;
   }
+  .contact-links{display:flex; gap:10px; flex-wrap:wrap;}
   .contact-links a{
-    background:var(--cream);
-    color:var(--black);
     text-decoration:none;
-    border:4px solid var(--cream);
-    padding:12px 18px;
-    font-weight:700;
-    font-family:'Space Mono', monospace;
-    box-shadow:6px 6px 0 var(--yellow);
-    transition:transform .12s, box-shadow .12s, background .12s;
+    color:var(--text);
+    background:var(--surface-alt);
+    border:1px solid var(--border);
+    padding:9px 16px;
+    border-radius:999px;
+    font-size:.9rem;
+    font-weight:500;
+    display:inline-flex; align-items:center; gap:8px;
+    transition: background .15s ease, border-color .15s ease, transform .15s ease;
   }
   .contact-links a:hover{
-    transform:translate(-3px,-3px);
-    box-shadow:9px 9px 0 var(--red);
-    background:var(--yellow);
+    background:var(--accent-soft);
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+    transform: translateY(-1px);
+  }
+  .contact-links a.primary{
+    background:var(--text);
+    color:var(--bg);
+    border-color:var(--text);
+  }
+  .contact-links a.primary:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
   }
 
   /* ---------- FOOTER ---------- */
   footer{
-    border-top:4px solid var(--black);
-    background:var(--cream);
-    padding:24px;
+    border-top:1px solid var(--border);
+    padding:32px 0 48px;
     text-align:center;
+    color:var(--text-muted);
     font-size:.85rem;
-    margin-top:40px;
-  }
-  footer span{
-    background:var(--black); color:var(--yellow);
-    padding:2px 8px;
-    font-weight:700;
-  }
-
-  /* ---------- DECORATIVE BLOBS ---------- */
-  .deco{
-    position:absolute;
-    pointer-events:none;
-    z-index:-1;
-  }
-  .deco-1{
-    top:120px; right:-30px;
-    width:120px; height:120px;
-    background:var(--blue);
-    border:5px solid var(--black);
-    transform:rotate(15deg);
-  }
-  .deco-2{
-    top:40%; left:-40px;
-    width:80px; height:80px;
-    background:var(--yellow);
-    border:5px solid var(--black);
-    border-radius:50%;
   }
 
   /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 880px){
-    .hero-grid{ grid-template-columns:1fr;}
-    .about-grid{ grid-template-columns:1fr;}
-    .proj-grid{ grid-template-columns:1fr;}
-    .skill-grid{ grid-template-columns:1fr 1fr;}
-    .sticker{ transform:rotate(0);}
+  @media (max-width: 640px){
+    .nav-links{display:none;}
+    .timeline-item{grid-template-columns:1fr; gap:4px;}
+    .skill-grid{grid-template-columns:1fr; gap:6px 0;}
+    .skill-cat{padding-top:14px;}
+    .skill-row:first-child .skill-cat:first-child{padding-top:0;}
+    .hero{padding:56px 0 40px;}
   }
-  @media (max-width: 520px){
-    .skill-grid{ grid-template-columns:1fr;}
-    .nav-links{ gap:6px;}
-    .nav-links a{ font-size:.75rem; padding:5px 8px;}
-    .contact-card{ padding:28px 18px;}
-  }
-
-  /* Entrance animation */
-  @keyframes pop {
-    0%{ opacity:0; transform: translateY(20px) scale(.95);}
-    100%{ opacity:1; transform: translateY(0) scale(1);}
-  }
-  .hero-title .word{
-    opacity:0;
-    animation: pop .5s ease forwards;
-  }
-  .hero-title .word:nth-child(1){ animation-delay:.05s;}
-  .hero-title .word:nth-child(2){ animation-delay:.18s;}
-  .hero-title .word:nth-child(3){ animation-delay:.31s;}
-  .hero-title .word:nth-child(4){ animation-delay:.44s;}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <div class="logo">CM.</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="logo">Christian Mardini</div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </nav>
 
-<div class="wrap">
+<main class="wrap">
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="deco deco-1"></div>
-    <div class="deco deco-2"></div>
-    <div class="hero-grid">
-      <div>
-        <h1 class="hero-title">
-          <span class="word w-red">Christian</span>
-          <span class="word w-yellow">Mardini</span>
-          <span class="word w-blue">Builds</span>
-          <span class="word w-green">Software.</span>
-        </h1>
-        <div class="hero-sub">
-          BSc Computer Science student at KTH Royal Institute of Technology.
-          I build full-stack web apps and mobile applications — from microservice
-          architectures to native Android. Currently working on my bachelor's
-          thesis on AI-driven document workflows.
-        </div>
-        <div class="hero-meta">
-          <span class="pill red">📍 Stockholm, SE</span>
-          <span class="pill blue">🎓 KTH</span>
-          <span class="pill green">💼 Open to work</span>
-        </div>
-      </div>
-
-      <aside class="sticker">
-        <h3>Currently</h3>
-        <div class="big">2026</div>
-        <ul>
-          <li>Bachelor's Thesis</li>
-          <li>Pure Consulting Group</li>
-          <li>AI &amp; Document Adaptation</li>
-          <li>Stockholm</li>
-        </ul>
-      </aside>
+  <section class="hero" style="border-top:none;">
+    <h1>Computer Science student <em>building thoughtful software.</em></h1>
+    <p class="hero-sub">
+      I'm Christian — a BSc Engineering student at KTH Royal Institute of Technology in Stockholm.
+      I work across the stack, from microservice backends to native Android, and I'm currently
+      writing my bachelor's thesis on AI-driven document workflows.
+    </p>
+    <div class="hero-meta">
+      <span><span class="dot"></span> Open to opportunities</span>
+      <span>📍 Stockholm, Sweden</span>
     </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about">
-    <h2 class="sec-title">About</h2>
-    <div class="about-grid">
-      <div class="card">
-        <h3>Education</h3>
-        <p class="school">BSc in Engineering, Computer Science</p>
-        <p>KTH Royal Institute of Technology — 180 ECTS</p>
-        <span class="year">2023 – Present</span>
-      </div>
-      <div class="card">
-        <h3>Previous</h3>
-        <p class="school">BSc in Logistics and Economics</p>
-        <p>Södertörn University — 180 ECTS</p>
-        <span class="year">2020 – 2023</span>
-      </div>
-      <div class="card" style="grid-column:1 / -1; background:var(--yellow);">
-        <h3>Summary</h3>
-        <p>
-          I've built a solid foundation in programming, web development, databases,
-          and software systems. My project work spans full-stack web applications
-          built with ASP.NET, Spring Boot, Quarkus, Node.js, and React, as well as
-          mobile apps with Flutter and Kotlin. I enjoy working across the stack and
-          shipping things that actually work.
-        </p>
-      </div>
-    </div>
+    <div class="sec-title">About</div>
+    <p class="about-text">
+      I'm in my final stretch of a BSc in Computer Science at KTH, with a previous background in
+      Logistics and Economics from Södertörn University. My academic projects have given me a
+      solid foundation in programming, web development, databases, and software architecture.
+    </p>
+    <p class="about-text">
+      I've shipped full-stack web apps with ASP.NET, Spring Boot, Quarkus, Node.js, and React,
+      and mobile applications with Flutter and Kotlin. I enjoy working across the stack and
+      especially like the moments where architecture decisions make a real difference.
+    </p>
   </section>
 
   <!-- PROJECTS -->
   <section id="projects">
-    <h2 class="sec-title">Projects</h2>
-    <div class="proj-grid">
+    <div class="sec-title">Selected Projects</div>
+    <div class="projects">
 
       <article class="proj">
-        <div class="proj-banner">
-          <span>Full-Stack Web</span>
-          <span class="proj-num">01</span>
+        <div class="proj-head">
+          <h3>Healthcare Journal System</h3>
+          <span class="proj-type">Microservices</span>
         </div>
-        <div class="proj-body">
-          <h3>Inventory &amp; Invoicing</h3>
-          <p>
-            A full-stack web application for a food wholesale company. Manage
-            warehouse inventory, track stock levels, and create invoices — all with
-            full CRUD operations and a user-friendly interface.
-          </p>
-          <div class="tags">
-            <span class="tag">Java</span>
-            <span class="tag">React</span>
-            <span class="tag">Docker</span>
-            <span class="tag">Keycloak</span>
-            <span class="tag">MariaDB</span>
-          </div>
+        <p>
+          A full-stack journal system where doctors diagnose patients, exchange messages, and
+          upload medical images. Patients access their records and respond securely. Built with
+          a microservice architecture for scalability and security.
+        </p>
+        <div class="tags">
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Quarkus</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">React</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Apache Kafka</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Keycloak</span>
         </div>
       </article>
 
       <article class="proj">
-        <div class="proj-banner">
-          <span>Microservices</span>
-          <span class="proj-num">02</span>
+        <div class="proj-head">
+          <h3>Inventory &amp; Invoicing Platform</h3>
+          <span class="proj-type">Full-Stack Web</span>
         </div>
-        <div class="proj-body">
-          <h3>Healthcare Journal</h3>
-          <p>
-            Microservice-architecture system where doctors diagnose patients,
-            exchange messages, and upload medical images. Patients view records
-            and respond securely. Built for scalability with Kubernetes and Kafka.
-          </p>
-          <div class="tags">
-            <span class="tag">Spring Boot</span>
-            <span class="tag">Quarkus</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">Kubernetes</span>
-            <span class="tag">Kafka</span>
-            <span class="tag">MySQL</span>
-          </div>
+        <p>
+          A web application for a food wholesale company to manage warehouse inventory, track
+          stock levels, and create invoices. Full CRUD operations with a clean, user-friendly UI.
+        </p>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">React</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Keycloak</span>
+          <span class="tag">MariaDB</span>
         </div>
       </article>
 
       <article class="proj">
-        <div class="proj-banner">
-          <span>.NET / Real-Time</span>
-          <span class="proj-num">03</span>
-        </div>
-        <div class="proj-body">
+        <div class="proj-head">
           <h3>Real-Time Auction</h3>
-          <p>
-            A lightweight auction platform built with ASP.NET where users list
-            items, place bids and track auctions in real time. Built around clean
-            architecture and a responsive UI.
-          </p>
-          <div class="tags">
-            <span class="tag">C#</span>
-            <span class="tag">ASP.NET</span>
-            <span class="tag">React</span>
-            <span class="tag">MySQL</span>
-          </div>
+          <span class="proj-type">ASP.NET</span>
+        </div>
+        <p>
+          A lightweight auction platform where users list items, place bids, and track auctions
+          in real time. Built around clean architecture and a responsive UI to practice modern
+          .NET development patterns.
+        </p>
+        <div class="tags">
+          <span class="tag">C#</span>
+          <span class="tag">ASP.NET</span>
+          <span class="tag">React</span>
+          <span class="tag">MySQL</span>
         </div>
       </article>
 
       <article class="proj">
-        <div class="proj-banner">
-          <span>Mobile Apps</span>
-          <span class="proj-num">04</span>
+        <div class="proj-head">
+          <h3>Mobile App Collection</h3>
+          <span class="proj-type">Android / Flutter</span>
         </div>
-        <div class="proj-body">
-          <h3>Mobile Collection</h3>
-          <p>
-            Several native and cross-platform mobile apps: Movie-Matcher, an
-            N-Back memory game, a Weather app, and a Bluetooth app — covering
-            Android SDK, Firebase integration, and Flutter.
-          </p>
-          <div class="tags">
-            <span class="tag">Kotlin</span>
-            <span class="tag">Android SDK</span>
-            <span class="tag">Flutter</span>
-            <span class="tag">Dart</span>
-            <span class="tag">Firebase</span>
-          </div>
+        <p>
+          Several native and cross-platform mobile apps: Movie-Matcher, an N-Back memory game,
+          a Weather app, and a Bluetooth utility — covering Android SDK, Firebase integration,
+          and Flutter.
+        </p>
+        <div class="tags">
+          <span class="tag">Kotlin</span>
+          <span class="tag">Android SDK</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">Dart</span>
+          <span class="tag">Firebase</span>
         </div>
       </article>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="sec-title">Experience &amp; Education</div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-year">2026 – Now</div>
+        <div class="timeline-content">
+          <h3>Bachelor's Thesis — Pure Consulting Group AB</h3>
+          <div class="org">Researching AI-driven document adaptation in consultancy workflows: how prompting and preprocessing affect output quality and efficiency.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2023 – Now</div>
+        <div class="timeline-content">
+          <h3>BSc Engineering, Computer Science</h3>
+          <div class="org">KTH Royal Institute of Technology · 180 ECTS</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-content">
+          <h3>Warehouse Associate / Logistics Coordinator</h3>
+          <div class="org">Simplex Logistik Sverige AB · Södertälje</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2020 – 2023</div>
+        <div class="timeline-content">
+          <h3>BSc Logistics and Economics</h3>
+          <div class="org">Södertörn University · 180 ECTS</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2019 – 2020</div>
+        <div class="timeline-content">
+          <h3>Goods Receiver / Forklift Operator</h3>
+          <div class="org">Bergendahls Food AB · Botkyrka</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2018 – 2019</div>
+        <div class="timeline-content">
+          <h3>Construction Logistics Coordinator</h3>
+          <div class="org">Uniccon AB · Huddinge</div>
+        </div>
+      </div>
 
     </div>
   </section>
 
   <!-- SKILLS -->
   <section id="skills">
-    <h2 class="sec-title">Skills</h2>
+    <div class="sec-title">Skills</div>
     <div class="skill-grid">
-      <div class="skill-block">
-        <h3>Languages</h3>
-        <div class="skill-list">
-          <span>Java</span><span>C#</span><span>Python</span><span>C</span>
-          <span>SQL</span><span>JavaScript</span><span>MATLAB</span>
-          <span>Kotlin</span><span>Dart</span><span>HTML</span><span>CSS</span>
+
+      <div class="skill-cat">Languages</div>
+      <div class="skill-row">
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">C#</span>
+          <span class="tag">Python</span>
+          <span class="tag">C</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Kotlin</span>
+          <span class="tag">Dart</span>
+          <span class="tag">MATLAB</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
         </div>
       </div>
-      <div class="skill-block">
-        <h3>Web &amp; Mobile</h3>
-        <div class="skill-list">
-          <span>ASP.NET Core</span><span>Spring Boot</span><span>Quarkus</span>
-          <span>Node.js</span><span>React</span><span>Razor Pages</span>
-          <span>REST APIs</span><span>Keycloak</span><span>Firebase</span>
-          <span>Flutter</span><span>Android SDK</span>
+
+      <div class="skill-cat">Web &amp; Mobile</div>
+      <div class="skill-row">
+        <div class="tags">
+          <span class="tag">ASP.NET Core</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Quarkus</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">React</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Razor Pages</span>
+          <span class="tag">Keycloak</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">Android SDK</span>
         </div>
       </div>
-      <div class="skill-block">
-        <h3>DevOps</h3>
-        <div class="skill-list">
-          <span>Docker</span><span>Kubernetes</span><span>Git</span>
-          <span>Postman</span><span>Apache Kafka</span>
+
+      <div class="skill-cat">DevOps</div>
+      <div class="skill-row">
+        <div class="tags">
+          <span class="tag">Docker</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Git</span>
+          <span class="tag">Apache Kafka</span>
+          <span class="tag">Postman</span>
         </div>
       </div>
-      <div class="skill-block">
-        <h3>Spoken</h3>
-        <div class="skill-list">
-          <span>Swedish — Native</span><span>English — Fluent</span>
+
+      <div class="skill-cat">Spoken</div>
+      <div class="skill-row">
+        <div class="tags">
+          <span class="tag">Swedish — Native</span>
+          <span class="tag">English — Fluent</span>
         </div>
       </div>
+
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <h2 class="sec-title">Contact</h2>
+    <div class="sec-title">Contact</div>
     <div class="contact-card">
-      <h3>Let's build something.</h3>
+      <h3>Let's get in touch.</h3>
+      <p>Looking for a thesis collaboration, internship, or junior dev role — happy to chat about any of it.</p>
       <div class="contact-links">
-        <a href="mailto:christian.mardini8@gmail.com">✉ Email</a>
-        <a href="https://github.com/Mardini8" target="_blank" rel="noopener">⌘ GitHub</a>
-        <a href="https://linkedin.com/in/christianmardini" target="_blank" rel="noopener">in LinkedIn</a>
-        <a href="tel:+46767045162">☎ +46 76 704 51 62</a>
+        <a href="mailto:christian.mardini8@gmail.com" class="primary">✉ Email me</a>
+        <a href="https://github.com/Mardini8" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/christianmardini" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="tel:+46767045162">+46 76 704 51 62</a>
       </div>
     </div>
   </section>
 
-</div>
+</main>
 
 <footer>
-  Built with <span>HTML + CSS</span> &nbsp;·&nbsp; Christian Mardini © 2026
+  © 2026 Christian Mardini · Stockholm
 </footer>
+
+<script>
+  // Theme toggle with localStorage persistence + system preference fallback
+  (function(){
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored || (prefersDark ? 'dark' : 'light');
+    root.setAttribute('data-theme', initial);
+
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+</script>
 
 </body>
 </html>

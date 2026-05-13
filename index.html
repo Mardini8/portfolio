@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Christian Mardini — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Bowlby+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#ff2d2d;
+    --blue:#2b4cff;
+    --yellow:#ffd400;
+    --green:#1aae4a;
+    --black:#0a0a0a;
+    --cream:#f6f1e3;
+    --shadow: 8px 8px 0 var(--black);
+    --shadow-lg: 12px 12px 0 var(--black);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Mono', monospace;
+    background:var(--cream);
+    color:var(--black);
+    line-height:1.5;
+    overflow-x:hidden;
+    /* halftone dot pattern */
+    background-image: radial-gradient(var(--black) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{max-width:1280px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--yellow);
+    border-bottom:4px solid var(--black);
+  }
+  .nav-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 24px; max-width:1280px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Archivo Black', sans-serif;
+    font-size:1.4rem;
+    background:var(--black); color:var(--yellow);
+    padding:8px 14px;
+    border:3px solid var(--black);
+    transform:rotate(-2deg);
+  }
+  .nav-links{display:flex; gap:8px; list-style:none; flex-wrap:wrap;}
+  .nav-links a{
+    text-decoration:none; color:var(--black);
+    font-weight:700; font-size:.85rem;
+    padding:6px 12px;
+    border:3px solid var(--black);
+    background:var(--cream);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .nav-links a:hover{
+    transform:translate(-2px,-2px);
+    box-shadow:4px 4px 0 var(--black);
+    background:var(--red); color:var(--cream);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:80px 0 60px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.4fr .9fr;
+    gap:32px;
+    align-items:start;
+  }
+  .hero-title{
+    font-family:'Bowlby One', sans-serif;
+    font-size:clamp(2.8rem, 8vw, 6.5rem);
+    line-height:.9;
+    letter-spacing:-.02em;
+    text-transform:uppercase;
+  }
+  .hero-title .word{
+    display:inline-block;
+    padding:4px 14px;
+    margin:6px 4px 6px 0;
+    border:5px solid var(--black);
+    background:var(--cream);
+    box-shadow:var(--shadow);
+  }
+  .hero-title .w-red{ background:var(--red); color:var(--cream);}
+  .hero-title .w-blue{ background:var(--blue); color:var(--cream);}
+  .hero-title .w-yellow{ background:var(--yellow);}
+  .hero-title .w-green{ background:var(--green); color:var(--cream);}
+
+  .hero-sub{
+    margin-top:24px;
+    background:var(--cream);
+    border:4px solid var(--black);
+    padding:18px 20px;
+    box-shadow:var(--shadow);
+    font-size:1rem;
+    max-width:560px;
+  }
+  .hero-meta{
+    margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .pill{
+    display:inline-block;
+    padding:8px 14px;
+    border:3px solid var(--black);
+    font-weight:700; font-size:.85rem;
+    background:var(--cream);
+    box-shadow:4px 4px 0 var(--black);
+  }
+  .pill.red{ background:var(--red); color:var(--cream);}
+  .pill.blue{ background:var(--blue); color:var(--cream);}
+  .pill.green{ background:var(--green); color:var(--cream);}
+
+  /* Hero sticker card */
+  .sticker{
+    background:var(--red);
+    border:5px solid var(--black);
+    box-shadow:var(--shadow-lg);
+    padding:24px;
+    color:var(--cream);
+    transform:rotate(2deg);
+    position:relative;
+  }
+  .sticker h3{
+    font-family:'Archivo Black', sans-serif;
+    font-size:1.6rem;
+    text-transform:uppercase;
+    line-height:1;
+    margin-bottom:12px;
+  }
+  .sticker .big{
+    font-family:'Bowlby One', sans-serif;
+    font-size:3.2rem; line-height:1;
+    background:var(--yellow); color:var(--black);
+    border:4px solid var(--black);
+    padding:10px 14px;
+    display:inline-block;
+    transform:rotate(-3deg);
+    margin:8px 0;
+  }
+  .sticker ul{list-style:none; margin-top:10px;}
+  .sticker ul li{padding:4px 0; font-weight:700;}
+  .sticker ul li::before{content:"▸ "; color:var(--yellow);}
+
+  /* ---------- SECTION HEADER ---------- */
+  section{padding:60px 0; position:relative;}
+  .sec-title{
+    font-family:'Bowlby One', sans-serif;
+    font-size:clamp(2rem, 5vw, 3.6rem);
+    text-transform:uppercase;
+    display:inline-block;
+    padding:8px 20px;
+    border:5px solid var(--black);
+    box-shadow:var(--shadow);
+    margin-bottom:36px;
+  }
+  #about .sec-title{background:var(--blue); color:var(--cream);}
+  #projects .sec-title{background:var(--green); color:var(--cream);}
+  #skills .sec-title{background:var(--red); color:var(--cream);}
+  #contact .sec-title{background:var(--yellow);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:24px;
+  }
+  .card{
+    background:var(--cream);
+    border:4px solid var(--black);
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+  .card h3{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    font-size:1.2rem;
+    margin-bottom:10px;
+    display:inline-block;
+    padding:4px 10px;
+    background:var(--black); color:var(--yellow);
+  }
+  .card p{font-size:.95rem; margin-bottom:8px;}
+  .card .school{font-weight:700;}
+  .card .year{
+    display:inline-block;
+    font-family:'Archivo Black', sans-serif;
+    background:var(--yellow);
+    border:3px solid var(--black);
+    padding:2px 8px;
+    margin-top:6px;
+    font-size:.8rem;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:28px;
+  }
+  .proj{
+    background:var(--cream);
+    border:5px solid var(--black);
+    box-shadow:var(--shadow-lg);
+    padding:0;
+    overflow:hidden;
+    transition: transform .15s ease, box-shadow .15s ease;
+    display:flex; flex-direction:column;
+  }
+  .proj:hover{
+    transform: translate(-4px,-4px);
+    box-shadow: 16px 16px 0 var(--black);
+  }
+  .proj-banner{
+    padding:18px 20px;
+    border-bottom:5px solid var(--black);
+    font-family:'Archivo Black', sans-serif;
+    font-size:.85rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .proj:nth-child(1) .proj-banner{ background:var(--red); color:var(--cream);}
+  .proj:nth-child(2) .proj-banner{ background:var(--blue); color:var(--cream);}
+  .proj:nth-child(3) .proj-banner{ background:var(--green); color:var(--cream);}
+  .proj:nth-child(4) .proj-banner{ background:var(--yellow);}
+
+  .proj-num{
+    background:var(--black); color:var(--cream);
+    padding:2px 8px; border:2px solid var(--black);
+  }
+  .proj-body{ padding:22px; flex:1; display:flex; flex-direction:column;}
+  .proj-body h3{
+    font-family:'Bowlby One', sans-serif;
+    font-size:1.5rem;
+    line-height:1;
+    margin-bottom:12px;
+    text-transform:uppercase;
+  }
+  .proj-body p{font-size:.92rem; margin-bottom:14px; flex:1;}
+  .tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    font-size:.72rem;
+    font-weight:700;
+    padding:4px 8px;
+    border:2px solid var(--black);
+    background:var(--cream);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skill-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:24px;
+  }
+  .skill-block{
+    border:5px solid var(--black);
+    box-shadow:var(--shadow);
+    padding:20px;
+  }
+  .skill-block:nth-child(1){background:var(--yellow);}
+  .skill-block:nth-child(2){background:var(--blue); color:var(--cream);}
+  .skill-block:nth-child(3){background:var(--green); color:var(--cream);}
+  .skill-block:nth-child(4){background:var(--red); color:var(--cream);}
+  .skill-block h3{
+    font-family:'Bowlby One', sans-serif;
+    text-transform:uppercase;
+    font-size:1.3rem;
+    margin-bottom:14px;
+    line-height:1;
+  }
+  .skill-list{display:flex; flex-wrap:wrap; gap:6px;}
+  .skill-list span{
+    background:var(--cream); color:var(--black);
+    border:3px solid var(--black);
+    padding:4px 10px;
+    font-size:.78rem;
+    font-weight:700;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-card{
+    background:var(--black);
+    color:var(--cream);
+    border:5px solid var(--black);
+    padding:40px;
+    box-shadow:var(--shadow-lg);
+    text-align:center;
+    position:relative;
+  }
+  .contact-card::before{
+    content:"";
+    position:absolute;
+    top:-20px; left:-20px;
+    width:60px; height:60px;
+    background:var(--red);
+    border:5px solid var(--black);
+    z-index:-1;
+  }
+  .contact-card::after{
+    content:"";
+    position:absolute;
+    bottom:-20px; right:-20px;
+    width:60px; height:60px;
+    background:var(--green);
+    border:5px solid var(--black);
+    z-index:-1;
+  }
+  .contact-card h3{
+    font-family:'Bowlby One', sans-serif;
+    font-size:clamp(1.6rem, 4vw, 2.6rem);
+    text-transform:uppercase;
+    margin-bottom:24px;
+    line-height:1;
+  }
+  .contact-links{
+    display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  }
+  .contact-links a{
+    background:var(--cream);
+    color:var(--black);
+    text-decoration:none;
+    border:4px solid var(--cream);
+    padding:12px 18px;
+    font-weight:700;
+    font-family:'Space Mono', monospace;
+    box-shadow:6px 6px 0 var(--yellow);
+    transition:transform .12s, box-shadow .12s, background .12s;
+  }
+  .contact-links a:hover{
+    transform:translate(-3px,-3px);
+    box-shadow:9px 9px 0 var(--red);
+    background:var(--yellow);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:4px solid var(--black);
+    background:var(--cream);
+    padding:24px;
+    text-align:center;
+    font-size:.85rem;
+    margin-top:40px;
+  }
+  footer span{
+    background:var(--black); color:var(--yellow);
+    padding:2px 8px;
+    font-weight:700;
+  }
+
+  /* ---------- DECORATIVE BLOBS ---------- */
+  .deco{
+    position:absolute;
+    pointer-events:none;
+    z-index:-1;
+  }
+  .deco-1{
+    top:120px; right:-30px;
+    width:120px; height:120px;
+    background:var(--blue);
+    border:5px solid var(--black);
+    transform:rotate(15deg);
+  }
+  .deco-2{
+    top:40%; left:-40px;
+    width:80px; height:80px;
+    background:var(--yellow);
+    border:5px solid var(--black);
+    border-radius:50%;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px){
+    .hero-grid{ grid-template-columns:1fr;}
+    .about-grid{ grid-template-columns:1fr;}
+    .proj-grid{ grid-template-columns:1fr;}
+    .skill-grid{ grid-template-columns:1fr 1fr;}
+    .sticker{ transform:rotate(0);}
+  }
+  @media (max-width: 520px){
+    .skill-grid{ grid-template-columns:1fr;}
+    .nav-links{ gap:6px;}
+    .nav-links a{ font-size:.75rem; padding:5px 8px;}
+    .contact-card{ padding:28px 18px;}
+  }
+
+  /* Entrance animation */
+  @keyframes pop {
+    0%{ opacity:0; transform: translateY(20px) scale(.95);}
+    100%{ opacity:1; transform: translateY(0) scale(1);}
+  }
+  .hero-title .word{
+    opacity:0;
+    animation: pop .5s ease forwards;
+  }
+  .hero-title .word:nth-child(1){ animation-delay:.05s;}
+  .hero-title .word:nth-child(2){ animation-delay:.18s;}
+  .hero-title .word:nth-child(3){ animation-delay:.31s;}
+  .hero-title .word:nth-child(4){ animation-delay:.44s;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">CM.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="deco deco-1"></div>
+    <div class="deco deco-2"></div>
+    <div class="hero-grid">
+      <div>
+        <h1 class="hero-title">
+          <span class="word w-red">Christian</span>
+          <span class="word w-yellow">Mardini</span>
+          <span class="word w-blue">Builds</span>
+          <span class="word w-green">Software.</span>
+        </h1>
+        <div class="hero-sub">
+          BSc Computer Science student at KTH Royal Institute of Technology.
+          I build full-stack web apps and mobile applications — from microservice
+          architectures to native Android. Currently working on my bachelor's
+          thesis on AI-driven document workflows.
+        </div>
+        <div class="hero-meta">
+          <span class="pill red">📍 Stockholm, SE</span>
+          <span class="pill blue">🎓 KTH</span>
+          <span class="pill green">💼 Open to work</span>
+        </div>
+      </div>
+
+      <aside class="sticker">
+        <h3>Currently</h3>
+        <div class="big">2026</div>
+        <ul>
+          <li>Bachelor's Thesis</li>
+          <li>Pure Consulting Group</li>
+          <li>AI &amp; Document Adaptation</li>
+          <li>Stockholm</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="sec-title">About</h2>
+    <div class="about-grid">
+      <div class="card">
+        <h3>Education</h3>
+        <p class="school">BSc in Engineering, Computer Science</p>
+        <p>KTH Royal Institute of Technology — 180 ECTS</p>
+        <span class="year">2023 – Present</span>
+      </div>
+      <div class="card">
+        <h3>Previous</h3>
+        <p class="school">BSc in Logistics and Economics</p>
+        <p>Södertörn University — 180 ECTS</p>
+        <span class="year">2020 – 2023</span>
+      </div>
+      <div class="card" style="grid-column:1 / -1; background:var(--yellow);">
+        <h3>Summary</h3>
+        <p>
+          I've built a solid foundation in programming, web development, databases,
+          and software systems. My project work spans full-stack web applications
+          built with ASP.NET, Spring Boot, Quarkus, Node.js, and React, as well as
+          mobile apps with Flutter and Kotlin. I enjoy working across the stack and
+          shipping things that actually work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="sec-title">Projects</h2>
+    <div class="proj-grid">
+
+      <article class="proj">
+        <div class="proj-banner">
+          <span>Full-Stack Web</span>
+          <span class="proj-num">01</span>
+        </div>
+        <div class="proj-body">
+          <h3>Inventory &amp; Invoicing</h3>
+          <p>
+            A full-stack web application for a food wholesale company. Manage
+            warehouse inventory, track stock levels, and create invoices — all with
+            full CRUD operations and a user-friendly interface.
+          </p>
+          <div class="tags">
+            <span class="tag">Java</span>
+            <span class="tag">React</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Keycloak</span>
+            <span class="tag">MariaDB</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-banner">
+          <span>Microservices</span>
+          <span class="proj-num">02</span>
+        </div>
+        <div class="proj-body">
+          <h3>Healthcare Journal</h3>
+          <p>
+            Microservice-architecture system where doctors diagnose patients,
+            exchange messages, and upload medical images. Patients view records
+            and respond securely. Built for scalability with Kubernetes and Kafka.
+          </p>
+          <div class="tags">
+            <span class="tag">Spring Boot</span>
+            <span class="tag">Quarkus</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Kafka</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-banner">
+          <span>.NET / Real-Time</span>
+          <span class="proj-num">03</span>
+        </div>
+        <div class="proj-body">
+          <h3>Real-Time Auction</h3>
+          <p>
+            A lightweight auction platform built with ASP.NET where users list
+            items, place bids and track auctions in real time. Built around clean
+            architecture and a responsive UI.
+          </p>
+          <div class="tags">
+            <span class="tag">C#</span>
+            <span class="tag">ASP.NET</span>
+            <span class="tag">React</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-banner">
+          <span>Mobile Apps</span>
+          <span class="proj-num">04</span>
+        </div>
+        <div class="proj-body">
+          <h3>Mobile Collection</h3>
+          <p>
+            Several native and cross-platform mobile apps: Movie-Matcher, an
+            N-Back memory game, a Weather app, and a Bluetooth app — covering
+            Android SDK, Firebase integration, and Flutter.
+          </p>
+          <div class="tags">
+            <span class="tag">Kotlin</span>
+            <span class="tag">Android SDK</span>
+            <span class="tag">Flutter</span>
+            <span class="tag">Dart</span>
+            <span class="tag">Firebase</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2 class="sec-title">Skills</h2>
+    <div class="skill-grid">
+      <div class="skill-block">
+        <h3>Languages</h3>
+        <div class="skill-list">
+          <span>Java</span><span>C#</span><span>Python</span><span>C</span>
+          <span>SQL</span><span>JavaScript</span><span>MATLAB</span>
+          <span>Kotlin</span><span>Dart</span><span>HTML</span><span>CSS</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h3>Web &amp; Mobile</h3>
+        <div class="skill-list">
+          <span>ASP.NET Core</span><span>Spring Boot</span><span>Quarkus</span>
+          <span>Node.js</span><span>React</span><span>Razor Pages</span>
+          <span>REST APIs</span><span>Keycloak</span><span>Firebase</span>
+          <span>Flutter</span><span>Android SDK</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h3>DevOps</h3>
+        <div class="skill-list">
+          <span>Docker</span><span>Kubernetes</span><span>Git</span>
+          <span>Postman</span><span>Apache Kafka</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <h3>Spoken</h3>
+        <div class="skill-list">
+          <span>Swedish — Native</span><span>English — Fluent</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="sec-title">Contact</h2>
+    <div class="contact-card">
+      <h3>Let's build something.</h3>
+      <div class="contact-links">
+        <a href="mailto:christian.mardini8@gmail.com">✉ Email</a>
+        <a href="https://github.com/Mardini8" target="_blank" rel="noopener">⌘ GitHub</a>
+        <a href="https://linkedin.com/in/christianmardini" target="_blank" rel="noopener">in LinkedIn</a>
+        <a href="tel:+46767045162">☎ +46 76 704 51 62</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Built with <span>HTML + CSS</span> &nbsp;·&nbsp; Christian Mardini © 2026
+</footer>
+
+</body>
+</html>
